@@ -21,7 +21,7 @@ app.get("/todos", function (req, res) {
 //GET /todos/:id
 app.get("/todos/:id", function (req, res) {
 	var todoId = parseInt(req.params.id);
-	var matchedToDo = _.findWhere(todos, {id: todoId})
+	var matchedToDo = _.findWhere(todos, {id: todoId});
 
 	if (matchedToDo) {
 		res.json(matchedToDo);
@@ -43,6 +43,19 @@ app.post("/todos", function (req, res) {
 	todos.push(body);
 
 	res.json(body);
+});
+
+//DELETE /todos:id
+app.delete("/todos/:id", function (req, res) {
+	var todoId = parseInt(req.params.id);
+	var matchedToDo = _.findWhere(todos, {id: todoId});
+
+	if (matchedToDo) {
+		todos = _.without(todos, matchedToDo);
+		res.json(matchedToDo);
+	} else {
+		res.status(404).json({"error: no todo found with that id"});
+	}
 });
 
 
