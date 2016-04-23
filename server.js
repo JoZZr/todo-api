@@ -54,7 +54,7 @@ app.delete("/todos/:id", function (req, res) {
 		todos = _.without(todos, matchedToDo);
 		res.json(matchedToDo);
 	} else {
-		res.status(404).json({"error: no todo found with that id"});
+		res.status(404).json({"error": "no todo found with that id"});
 	}
 });
 
