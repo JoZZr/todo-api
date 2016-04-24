@@ -41,15 +41,26 @@ app.get("/todos", function(req, res) {
 //GET /todos/:id
 app.get("/todos/:id", function(req, res) {
 	var todoId = parseInt(req.params.id);
-	var matchedToDo = _.findWhere(todos, {
-		id: todoId
+
+	db.todo.findById(todoId).then(function(todo) {
+		if (!!todo) {
+			return res.json(todo.toJSON());
+		} else {
+			return res.status(404).send();
+		}
+	}, function(e) {
+		return res.status(500).send();
 	});
 
-	if (matchedToDo) {
-		res.json(matchedToDo);
-	} else {
-		res.status(404).send();
-	}
+	// var matchedToDo = _.findWhere(todos, {
+	// 	id: todoId
+	// });
+
+	// if (matchedToDo) {
+	// 	res.json(matchedToDo);
+	// } else {
+	// 	res.status(404).send();
+	// }
 });
 
 //POST /todos
@@ -66,7 +77,7 @@ app.post("/todos", function(req, res) {
 	//if (!_.isBoolean(body.completed) || !_.isString(body.description) || body.description.trim().length === 0) {
 	// 	return res.status(400).json(e);
 	//}
-	
+
 	//	respond with 200 and todo
 	//	res.status(400).json(e)
 
