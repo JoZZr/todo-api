@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 app.get("/", function(req, res) {
 	res.send("Todo API root");
-});
+}); 
 
 //GET /todos?completed=false&q=work
 app.get("/todos", function(req, res) {
