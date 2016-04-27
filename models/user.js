@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		password_hash: {
 			type: DataTypes.STRING
-		}
+		},
 		password: {
 			type: DataTypes.VIRTUAL,
 			allowNull: false,
@@ -39,7 +39,7 @@ module.exports = function(sequelize, DataTypes) {
 					user.email = user.email.toLowerCase();
 				}
 			},
-			instanceMethods: function() {
+			instanceMethods: {
 				toPublicJSON: function() {
 					var json = this.toJSON();
 					return _.pick(json, "id", "email", "createdAt", "updatedAt");
